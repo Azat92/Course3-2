@@ -8,26 +8,18 @@
 
 #import "CollectionViewController.h"
 #import "CustomCollectionViewCell.h"
-#import "SnakeCollectionViewLayout.h"
 #import "RoundCollectionViewLayout.h"
 #import "Extensions.h"
 #import <BlocksKit+UIKit.h>
 
 @interface CollectionViewController () <UICollectionViewDelegateFlowLayout>
-@property (nonatomic, readonly) NSArray *colors;
+@property (nonatomic, readonly) NSArray *albums;
 @property (nonatomic) BOOL isLayoutCustom;
 @end
 
 @implementation CollectionViewController
-@synthesize colors = _colors;
+@synthesize albums = _albums;
 
-- (NSArray *)colors {
-    if (!_colors)
-        _colors = [[self take:[self collectionView:self.collectionView numberOfItemsInSection:0]] bk_map:^id(id obj) {
-            return [UIColor randomColor];
-        }];
-    return _colors;
-}
 
 - (void)setIsLayoutCustom:(BOOL)isLayoutCustom {
     _isLayoutCustom = isLayoutCustom;
@@ -40,6 +32,19 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.collectionView registerNib:[UINib nibWithNibName:@"CustomCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"CustomCellIdentifier"];
+    
+    NSMutableArray *tempAlbums = [NSMutableArray new];
+    NSInteger sections = [self numberOfSectionsInCollectionView:self.collectionView];
+    for (int i=0; i<sections; i++) {
+        NSMutableArray *sectionAlbums = [NSMutableArray new];
+        NSInteger items = [self.collectionView numberOfItemsInSection:i];
+        for (int j=0; j<items; j++) {
+            NSString *name = [NSString stringWithFormat:@"%d",arc4random_uniform(18)];
+            [sectionAlbums addObject:[UIImage imageNamed:name]];
+        }
+        [tempAlbums addObject:[NSArray arrayWithArray:sectionAlbums]];
+    }
+    _albums = [NSArray arrayWithArray:tempAlbums];
 }
 
 - (IBAction)layoutDidClick:(id)sender {
@@ -47,7 +52,7 @@
 }
 
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
-    return 3;
+    return 5;
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
@@ -59,7 +64,9 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     CustomCollectionViewCell *cell = (CustomCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"CustomCellIdentifier" forIndexPath:indexPath];
-    cell.backgroundColor = self.colors[indexPath.row];
+
+    UIImage *cellImage = [[_albums objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+    [cell.imageView setImage:cellImage];
     return cell;
 }
 

@@ -93,7 +93,7 @@
     CGSize size = self.collectionView.frame.size;
     
     if ([self numberOfSections]>1) {
-        size.height += 200;
+        size.height += 320*([self numberOfSections]-2);
     } else size.height -= 64;
     return size;
 }
@@ -114,8 +114,6 @@
 
 
 - (NSArray *)layoutAttributesForElementsInRect:(CGRect)rect {
-//    NSLog(@"ORIGIN X:%f  Y:%f", rect.origin.x,rect.origin.y);
-//    NSLog(@"WIDTH: %f", rect.size.width);
     NSMutableArray *attrs = [NSMutableArray new];
 
     for (NSArray *arr in attributes) {
