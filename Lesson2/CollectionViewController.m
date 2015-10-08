@@ -32,7 +32,7 @@
 - (void)setIsLayoutCustom:(BOOL)isLayoutCustom {
     _isLayoutCustom = isLayoutCustom;
     if (isLayoutCustom)
-        [self.collectionView setCollectionViewLayout:[SnakeCollectionViewLayout new] animated:YES];
+        [self.collectionView setCollectionViewLayout:[RoundCollectionViewLayout new] animated:YES];
     else
         [self.collectionView setCollectionViewLayout:[UICollectionViewFlowLayout new] animated:YES];
 }
@@ -46,8 +46,15 @@
     self.isLayoutCustom = !self.isLayoutCustom;
 }
 
+-(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
+    return 3;
+}
+
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return 40;
+    if ([self numberOfSectionsInCollectionView:self.collectionView]==0)
+        return 0;
+    
+    return 12;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
