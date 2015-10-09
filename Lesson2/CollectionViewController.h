@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "FullScreenController.h"
 
-@interface CollectionViewController : UICollectionViewController
+@interface CollectionViewController : UICollectionViewController <FullScreenProtocol>
 
 
 @end

@@ -15,6 +15,7 @@
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="hYQ-Sh-4Hq">
                         <rect key="frame" x="0.0" y="0.0" width="211" height="186"/>
                         <animations/>
+                        <gestureRecognizers/>
                     </imageView>
                 </subviews>
                 <animations/>
