@@ -28,10 +28,12 @@
 
 -(void)viewDidDisappear:(BOOL)animated{
     [_delegate offBlock];
+    
+    
 }
 
--(UIView *)viewForZoomTransition:(BOOL)isSource
-{
+
+-(UIView *)viewForZoomTransition:(BOOL)isSource {
     return self.imageView;
 }
 

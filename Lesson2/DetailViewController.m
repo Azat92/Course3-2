@@ -10,7 +10,7 @@
 #import "PopTransition.h"
 @interface DetailViewController () <UINavigationControllerDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *label;
-@property (nonatomic, strong) UIPercentDrivenInteractiveTransition *interactivePopTransition;
+@property (nonatomic, weak) UIPercentDrivenInteractiveTransition *interactivePopTransition;
 @end
 
 @implementation DetailViewController
@@ -34,6 +34,7 @@
     [super viewWillDisappear:animated];
     if (self.navigationController.delegate == self) {
         self.navigationController.delegate = nil;
+        [_delegate restoreNavControllerDelegate];
     }
 }
 

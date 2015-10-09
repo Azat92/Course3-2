@@ -8,8 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol DetailViewProtocol
+-(void)restoreNavControllerDelegate;
+@end
+
 @interface DetailViewController : UIViewController
 
 @property (nonatomic, strong) NSString * text;
+@property (nonatomic, weak) id <DetailViewProtocol> delegate;
 
 @end

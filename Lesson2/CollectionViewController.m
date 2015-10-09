@@ -12,7 +12,7 @@
 #import "Extensions.h"
 #import "ZoomInteractiveTransition.h"
 #import "ZoomTransitionProtocol.h"
-#import "DetailViewController.h"
+
 #import <BlocksKit+UIKit.h>
 
 @interface CollectionViewController () <UICollectionViewDelegateFlowLayout, ZoomTransitionProtocol>
@@ -26,11 +26,18 @@
 
 @property (nonatomic, strong) ZoomInteractiveTransition * transition;
 @property (nonatomic) BOOL isBlocked;
+
+@property (nonatomic, assign) CGFloat startScale;
+@property (nonatomic, assign) BOOL shouldCompleteTransition;
+
 @end
 
 @implementation CollectionViewController
 @synthesize albums = _albums;
 
+-(void)restoreNavControllerDelegate{
+    self.navigationController.delegate = _transition;
+}
 
 -(void)offBlock{
     _isBlocked = NO;
@@ -51,7 +58,6 @@
     _isBlocked = NO;
     self.transition = [[ZoomInteractiveTransition alloc] initWithNavigationController:self.navigationController];
     _gesture = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(didReceivePinchGesture:)];
-    [_gesture setDelegate:self];
     [_gesture setCancelsTouchesInView:YES];
     [self.collectionView addGestureRecognizer:self.gesture];
     
@@ -78,6 +84,22 @@
     NSIndexPath *selectedIndexPath = [self.collectionView indexPathForItemAtPoint:p1];
     CustomCollectionViewCell *selectedCell = (CustomCollectionViewCell*)[self.collectionView cellForItemAtIndexPath:selectedIndexPath];
     if (selectedCell) {
+        CGFloat scale = gesture.scale;
+        
+        switch (gesture.state) {
+            case UIGestureRecognizerStateBegan:
+                self.startScale = scale;
+                break;
+            case UIGestureRecognizerStateChanged:{
+                CGFloat percent = (1.0 + scale / self.startScale);
+                self.shouldCompleteTransition = (percent > 0.25);
+                break;
+            }
+            default:
+                break;
+        }
+        
+        
         _selectedCell = selectedCell;
         _isBlocked = YES;
         [self performSegueWithIdentifier:@"fullScreen" sender:self];
@@ -89,8 +111,9 @@
         FullScreenController *destination = segue.destinationViewController;
         destination.delegate = self;
         destination.albumImage = _selectedCell.imageView.image;
-    } else {
+    } else if ([segue.identifier isEqualToString:@"detail"]) {
         DetailViewController *destination = segue.destinationViewController;
+        destination.delegate = self;
         NSString *text = [NSString stringWithFormat:@"Section:%li, row:%li",(long)_selectedPath.section, _selectedPath.row];
         destination.text = text;
         _selectedPath = nil;
@@ -100,13 +123,12 @@
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     NSLog(@"SELECT: %ld", (long)indexPath.row);
     _selectedPath = indexPath;
-    CustomCollectionViewCell *selectedCell = (CustomCollectionViewCell*)[self.collectionView cellForItemAtIndexPath:indexPath];
-    [self performSegueWithIdentifier:@"detail" sender:selectedCell];
+//    CustomCollectionViewCell *selectedCell = (CustomCollectionViewCell*)[self.collectionView cellForItemAtIndexPath:indexPath];
+    [self performSegueWithIdentifier:@"detail" sender:self];
 }
 
 
--(UIView *)viewForZoomTransition:(BOOL)isSource
-{
+-(UIView *)viewForZoomTransition:(BOOL)isSource {
     return _selectedCell.imageView;
 }
 

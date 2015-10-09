@@ -75,8 +75,11 @@
             [[angles objectAtIndex:itemIndex.integerValue] intValue];
 
             double scale = sin(degreesToRadians(currentAngle))* 2/3 + 1;
+            
             // Увеличение
-            attr.transform3D = CATransform3DConcat(CATransform3DMakeScale(scale, scale, scale), CATransform3DMakeTranslation(0, 0, scale*10));
+            CATransform3D scaleAndTranslation = CATransform3DConcat(CATransform3DMakeScale(scale, scale, scale), CATransform3DMakeTranslation(0, 0, scale*10));
+            CATransform3D scaleTranslationRotation = CATransform3DConcat(scaleAndTranslation, CATransform3DMakeRotation(degreesToRadians(40), 0., 0.5, 0.));
+            attr.transform3D = scaleAndTranslation;
 
             attr.frame = CGRectMake(pt.x - kItemSize / 2 + self.collectionView.contentOffset.x, pt.y - kItemSize / 2, kItemSize,kItemSize);
             return attr;
