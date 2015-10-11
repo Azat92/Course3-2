@@ -13,9 +13,14 @@
 #import "Extensions.h"
 #import <BlocksKit+UIKit.h>
 
+NSInteger const MaxNumberOfImages = 15;
+NSString * const ImageNameFormatString = @"ios-9-wallpapers-%ld";
+
 @interface CollectionViewController () <UICollectionViewDelegateFlowLayout>
+
 @property (nonatomic, readonly) NSArray *colors;
 @property (nonatomic) BOOL isLayoutCustom;
+
 @end
 
 @implementation CollectionViewController
@@ -56,7 +61,11 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     CustomCollectionViewCell *cell = (CustomCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"CustomCellIdentifier" forIndexPath:indexPath];
-    cell.backgroundColor = self.colors[indexPath.row];
+    
+    NSInteger imageIndex = indexPath.row % MaxNumberOfImages + 1;
+    NSString *imageName = [NSString stringWithFormat:ImageNameFormatString, imageIndex];
+    cell.imageView.image = [UIImage imageNamed:imageName];
+    
     return cell;
 }
 
