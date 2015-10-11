@@ -84,6 +84,12 @@ float const NavigationBarHeight = 64.0;
 }
 
 - (CGSize)collectionViewContentSize {
+    if ([self numberOfSections] == 0) {
+        CGSize size = self.collectionView.frame.size;
+        size.height -= NavigationBarHeight;
+        return size;
+    }
+    
     CGFloat width = self.collectionView.frame.size.width * 2;
     CGFloat height = [self numberOfSections] * [self heightOfSection] + NavigationBarHeight;
     return CGSizeMake(width, height);
@@ -97,14 +103,33 @@ float const NavigationBarHeight = 64.0;
     return YES;
 }
 
-- (NSArray *)layoutAttributesForElementsInRect:(CGRect)rect {
-    NSMutableArray *attr = [NSMutableArray new];
+- (NSArray *)indexPathsOfItemsInRect:(CGRect)rect {
+    CGFloat originY = rect.origin.y;
+    CGFloat endY = originY + [self heightOfSection];
+    NSMutableArray *indexPaths = [NSMutableArray new];
     for (int section = 0; section < [self numberOfSections]; section++) {
-        for (NSInteger i = 0; i < [self numberOfItemsInSection:section]; i++) {
-            [attr addObject:[self layoutAttributesForItemAtIndexPath:[NSIndexPath indexPathForItem:i inSection:section]]];
+        CGFloat sectionOriginY = [self heightOfSection] * section + NavigationBarHeight;
+        CGFloat sectionEndY = sectionOriginY + [self heightOfSection];
+        if ((sectionOriginY >= originY && sectionEndY <= endY) ||
+            (sectionOriginY <= originY && sectionEndY <= endY) ||
+            (sectionOriginY >= originY && sectionEndY >= endY)) {
+            for (int item = 0; item < [self numberOfItemsInSection:section]; item++) {
+                NSIndexPath *indexPath = [NSIndexPath indexPathForItem:item inSection:section];
+                [indexPaths addObject:indexPath];
+            }
         }
     }
-    return attr;
+    return indexPaths;
+}
+
+- (NSArray *)layoutAttributesForElementsInRect:(CGRect)rect {
+    NSMutableArray *layoutAttributes = [NSMutableArray array];
+    NSArray *visibleIndexPaths = [self indexPathsOfItemsInRect:rect];
+    for (NSIndexPath *indexPath in visibleIndexPaths) {
+        UICollectionViewLayoutAttributes *attributes = [self layoutAttributesForItemAtIndexPath:indexPath];
+        [layoutAttributes addObject:attributes];
+    }
+    return layoutAttributes;
 }
 
 @end
