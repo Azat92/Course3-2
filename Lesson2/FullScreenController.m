@@ -28,8 +28,6 @@
 
 -(void)viewDidDisappear:(BOOL)animated{
     [_delegate offBlock];
-    
-    
 }
 
 

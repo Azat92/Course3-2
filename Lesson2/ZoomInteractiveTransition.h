@@ -14,6 +14,8 @@
 
 @property (nonatomic, assign) UINavigationController * navigationController;
 
+@property (nonatomic, assign, getter = isInteractive) BOOL interactive;
+
 - (instancetype)initWithNavigationController:(UINavigationController *)nc;
 
 @end

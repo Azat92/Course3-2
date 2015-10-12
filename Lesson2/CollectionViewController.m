@@ -12,7 +12,6 @@
 #import "Extensions.h"
 #import "ZoomInteractiveTransition.h"
 #import "ZoomTransitionProtocol.h"
-
 #import <BlocksKit+UIKit.h>
 
 @interface CollectionViewController () <UICollectionViewDelegateFlowLayout, ZoomTransitionProtocol>
@@ -28,6 +27,7 @@
 @property (nonatomic) BOOL isBlocked;
 
 @property (nonatomic, assign) CGFloat startScale;
+@property (nonatomic, assign) CGAffineTransform startTransform;
 @property (nonatomic, assign) BOOL shouldCompleteTransition;
 
 @end
@@ -76,7 +76,6 @@
 }
 
 - (void)didReceivePinchGesture:(UIPinchGestureRecognizer*)gesture{
-    NSLog(@"%@", @"RECIEVE");
     if (([gesture numberOfTouches] != 2)
         || _isBlocked) return;
     
@@ -84,21 +83,35 @@
     NSIndexPath *selectedIndexPath = [self.collectionView indexPathForItemAtPoint:p1];
     CustomCollectionViewCell *selectedCell = (CustomCollectionViewCell*)[self.collectionView cellForItemAtIndexPath:selectedIndexPath];
     if (selectedCell) {
-        CGFloat scale = gesture.scale;
-        
-        switch (gesture.state) {
-            case UIGestureRecognizerStateBegan:
-                self.startScale = scale;
-                break;
-            case UIGestureRecognizerStateChanged:{
-                CGFloat percent = (1.0 + scale / self.startScale);
-                self.shouldCompleteTransition = (percent > 0.25);
-                break;
-            }
-            default:
-                break;
-        }
-        
+//        _selectedCell = selectedCell;
+//        CGFloat currentScale = gesture.scale;
+//        switch (gesture.state) {
+//            case UIGestureRecognizerStateBegan:{
+//                _startScale = currentScale;
+//                _startTransform = selectedCell.transform;
+//                break;
+//            }
+//            case UIGestureRecognizerStateChanged:{
+//                CGFloat realScale = currentScale / _startScale;
+//                CGFloat percent = -(1-realScale);
+//                NSLog(@"PERCENT: %f", percent);
+//                self.shouldCompleteTransition = (percent > 0.25);
+//                
+//                selectedCell.transform = CGAffineTransformScale(_startTransform, currentScale, currentScale);
+//                break;
+//            }
+//            case UIGestureRecognizerStateEnded:
+//            case UIGestureRecognizerStateCancelled:
+//                if (!self.shouldCompleteTransition || gesture.state == UIGestureRecognizerStateCancelled) {
+//                    selectedCell.transform = _startTransform;
+//                }
+//                else
+//                    [self performSegueWithIdentifier:@"fullScreen" sender:self];
+//                break;
+//            default:
+//                break;
+//
+//        }
         
         _selectedCell = selectedCell;
         _isBlocked = YES;
