@@ -58,9 +58,10 @@
     UIViewController <ZoomTransitionProtocol> * fromVC = (id)[transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
     UIViewController <ZoomTransitionProtocol> *toVC = (id)[transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
     UIView * containerView = [transitionContext containerView];
-    UIView * fromView = [fromVC view];
-    UIView * toView = [toVC view];
     
+    UIView * fromView = [transitionContext viewForKey:UITransitionContextFromViewKey];
+    UIView * toView = [transitionContext viewForKey:UITransitionContextToViewKey];
+
     [containerView addSubview:toView];
     
     UIView * zoomFromView = [fromVC viewForZoomTransition:true];

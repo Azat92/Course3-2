@@ -12,9 +12,10 @@
 #import "Extensions.h"
 #import "ZoomInteractiveTransition.h"
 #import "ZoomTransitionProtocol.h"
+#import "CustomDetailTransition.h"
 #import <BlocksKit+UIKit.h>
 
-@interface CollectionViewController () <UICollectionViewDelegateFlowLayout, ZoomTransitionProtocol>
+@interface CollectionViewController () <UICollectionViewDelegateFlowLayout, ZoomTransitionProtocol, UINavigationControllerDelegate>
 
 @property (nonatomic, readonly) NSArray *albums;
 @property (nonatomic) BOOL isLayoutCustom;
@@ -75,44 +76,29 @@
     _albums = [NSArray arrayWithArray:tempAlbums];
 }
 
+-(void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    self.navigationController.delegate = self;
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    
+    if (self.navigationController.delegate == self) {
+        self.navigationController.delegate = nil;
+    }
+}
+
 - (void)didReceivePinchGesture:(UIPinchGestureRecognizer*)gesture{
     if (([gesture numberOfTouches] != 2)
         || _isBlocked) return;
+    
+    [self restoreNavControllerDelegate];
     
     CGPoint p1 = [gesture locationInView:self.collectionView];
     NSIndexPath *selectedIndexPath = [self.collectionView indexPathForItemAtPoint:p1];
     CustomCollectionViewCell *selectedCell = (CustomCollectionViewCell*)[self.collectionView cellForItemAtIndexPath:selectedIndexPath];
     if (selectedCell) {
-//        _selectedCell = selectedCell;
-//        CGFloat currentScale = gesture.scale;
-//        switch (gesture.state) {
-//            case UIGestureRecognizerStateBegan:{
-//                _startScale = currentScale;
-//                _startTransform = selectedCell.transform;
-//                break;
-//            }
-//            case UIGestureRecognizerStateChanged:{
-//                CGFloat realScale = currentScale / _startScale;
-//                CGFloat percent = -(1-realScale);
-//                NSLog(@"PERCENT: %f", percent);
-//                self.shouldCompleteTransition = (percent > 0.25);
-//                
-//                selectedCell.transform = CGAffineTransformScale(_startTransform, currentScale, currentScale);
-//                break;
-//            }
-//            case UIGestureRecognizerStateEnded:
-//            case UIGestureRecognizerStateCancelled:
-//                if (!self.shouldCompleteTransition || gesture.state == UIGestureRecognizerStateCancelled) {
-//                    selectedCell.transform = _startTransform;
-//                }
-//                else
-//                    [self performSegueWithIdentifier:@"fullScreen" sender:self];
-//                break;
-//            default:
-//                break;
-//
-//        }
-        
         _selectedCell = selectedCell;
         _isBlocked = YES;
         [self performSegueWithIdentifier:@"fullScreen" sender:self];
@@ -124,7 +110,8 @@
         FullScreenController *destination = segue.destinationViewController;
         destination.delegate = self;
         destination.albumImage = _selectedCell.imageView.image;
-    } else if ([segue.identifier isEqualToString:@"detail"]) {
+    }
+    if ([segue.identifier isEqualToString:@"detail"]) {
         DetailViewController *destination = segue.destinationViewController;
         destination.delegate = self;
         NSString *text = [NSString stringWithFormat:@"Section:%li, row:%li",(long)_selectedPath.section, _selectedPath.row];
@@ -133,10 +120,21 @@
     }
 }
 
+- (id<UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController
+                                  animationControllerForOperation:(UINavigationControllerOperation)operation
+                                               fromViewController:(UIViewController *)fromVC
+                                                 toViewController:(UIViewController *)toVC {
+
+    if (([fromVC class] == [DetailViewController class]) || ([toVC class] == [DetailViewController class])) {
+        return [CustomDetailTransition customTransitionWithOperation:operation];
+    }
+    return nil;
+}
+
+
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
-    NSLog(@"SELECT: %ld", (long)indexPath.row);
+    self.navigationController.delegate = self;
     _selectedPath = indexPath;
-//    CustomCollectionViewCell *selectedCell = (CustomCollectionViewCell*)[self.collectionView cellForItemAtIndexPath:indexPath];
     [self performSegueWithIdentifier:@"detail" sender:self];
 }
 

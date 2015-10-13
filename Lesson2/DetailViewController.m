@@ -6,11 +6,16 @@
 //  Copyright © 2015 Azat Almeev. All rights reserved.
 //
 
+
 #import "DetailViewController.h"
-#import "PopTransition.h"
+#import "CollectionViewController.h"
+#import "CustomDetailTransition.h"
+
+
 @interface DetailViewController () <UINavigationControllerDelegate>
+
 @property (weak, nonatomic) IBOutlet UILabel *label;
-@property (nonatomic, weak) UIPercentDrivenInteractiveTransition *interactivePopTransition;
+@property (nonatomic, strong) UIPercentDrivenInteractiveTransition *interactivePopTransition;
 @end
 
 @implementation DetailViewController
@@ -38,14 +43,19 @@
     }
 }
 
+
+- (id<UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController
+                                  animationControllerForOperation:(UINavigationControllerOperation)operation
+                                               fromViewController:(UIViewController *)fromVC
+                                                 toViewController:(UIViewController *)toVC {
+
+    return [CustomDetailTransition customTransitionWithOperation:operation];
+}
+
 - (id<UIViewControllerInteractiveTransitioning>)navigationController:(UINavigationController *)navigationController
                          interactionControllerForAnimationController:(id<UIViewControllerAnimatedTransitioning>)animationController {
 
-    if ([animationController isKindOfClass:[PopTransition class]]) {
-        self.interactivePopTransition = [[UIPercentDrivenInteractiveTransition alloc] init];
-        return self.interactivePopTransition;
-    }
-    return nil;
+    return _interactivePopTransition;
 }
 
 
@@ -54,23 +64,23 @@
     progress = MIN(1.0, MAX(0.0, progress));
     
     if (recognizer.state == UIGestureRecognizerStateBegan) {
-        self.interactivePopTransition = [[UIPercentDrivenInteractiveTransition alloc] init];
+        _interactivePopTransition = [CustomDetailTransition new];
         [self.navigationController popViewControllerAnimated:YES];
     }
     else if (recognizer.state == UIGestureRecognizerStateChanged) {
 
-        [self.interactivePopTransition updateInteractiveTransition:progress];
+        [_interactivePopTransition updateInteractiveTransition:progress];
     }
     else if (recognizer.state == UIGestureRecognizerStateEnded || recognizer.state == UIGestureRecognizerStateCancelled) {
 
         if (progress > 0.5) {
-            [self.interactivePopTransition finishInteractiveTransition];
+            [_interactivePopTransition finishInteractiveTransition];
         }
         else {
-            [self.interactivePopTransition cancelInteractiveTransition];
+            [_interactivePopTransition cancelInteractiveTransition];
         }
         
-        self.interactivePopTransition = nil;
+        _interactivePopTransition = nil;
     }
     
 }

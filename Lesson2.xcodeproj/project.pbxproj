@@ -7,11 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8E03DA671BCD8A9F009D02CC /* CustomDetailTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E03DA661BCD8A9F009D02CC /* CustomDetailTransition.m */; settings = {ASSET_TAGS = (); }; };
 		8E7F8E311BC72523008367C0 /* FullScreenController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E7F8E301BC72523008367C0 /* FullScreenController.m */; settings = {ASSET_TAGS = (); }; };
 		8E7F8E3A1BC72F59008367C0 /* ZoomInteractiveTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E7F8E361BC72F59008367C0 /* ZoomInteractiveTransition.m */; settings = {ASSET_TAGS = (); }; };
 		8E7F8E3B1BC72F59008367C0 /* UIView+Snapshotting.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E7F8E391BC72F59008367C0 /* UIView+Snapshotting.m */; settings = {ASSET_TAGS = (); }; };
 		8E7F8E3E1BC74DB3008367C0 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E7F8E3D1BC74DB3008367C0 /* DetailViewController.m */; settings = {ASSET_TAGS = (); }; };
-		8E7F8E411BC78C6C008367C0 /* PopTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E7F8E401BC78C6C008367C0 /* PopTransition.m */; settings = {ASSET_TAGS = (); }; };
 		AAE20B5C1BB6F33F004690D3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AAE20B5B1BB6F33F004690D3 /* main.m */; };
 		AAE20B5F1BB6F33F004690D3 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AAE20B5E1BB6F33F004690D3 /* AppDelegate.m */; };
 		AAE20B621BB6F33F004690D3 /* CollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AAE20B611BB6F33F004690D3 /* CollectionViewController.m */; };
@@ -29,6 +29,8 @@
 		371B1C53D89431B17036F685 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		37832B6475917A940961C44B /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		50F4652CA2620C82B1E50985 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		8E03DA651BCD8A9F009D02CC /* CustomDetailTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomDetailTransition.h; sourceTree = "<group>"; };
+		8E03DA661BCD8A9F009D02CC /* CustomDetailTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomDetailTransition.m; sourceTree = "<group>"; };
 		8E7F8E2F1BC72523008367C0 /* FullScreenController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FullScreenController.h; sourceTree = "<group>"; };
 		8E7F8E301BC72523008367C0 /* FullScreenController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FullScreenController.m; sourceTree = "<group>"; };
 		8E7F8E351BC72F59008367C0 /* ZoomInteractiveTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZoomInteractiveTransition.h; sourceTree = "<group>"; };
@@ -38,8 +40,6 @@
 		8E7F8E391BC72F59008367C0 /* UIView+Snapshotting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Snapshotting.m"; sourceTree = "<group>"; };
 		8E7F8E3C1BC74DB3008367C0 /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
 		8E7F8E3D1BC74DB3008367C0 /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
-		8E7F8E3F1BC78C6C008367C0 /* PopTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PopTransition.h; sourceTree = "<group>"; };
-		8E7F8E401BC78C6C008367C0 /* PopTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PopTransition.m; sourceTree = "<group>"; };
 		AAE20B571BB6F33F004690D3 /* Lesson2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Lesson2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AAE20B5B1BB6F33F004690D3 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		AAE20B5D1BB6F33F004690D3 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -119,8 +119,8 @@
 				8E7F8E301BC72523008367C0 /* FullScreenController.m */,
 				8E7F8E3C1BC74DB3008367C0 /* DetailViewController.h */,
 				8E7F8E3D1BC74DB3008367C0 /* DetailViewController.m */,
-				8E7F8E3F1BC78C6C008367C0 /* PopTransition.h */,
-				8E7F8E401BC78C6C008367C0 /* PopTransition.m */,
+				8E03DA651BCD8A9F009D02CC /* CustomDetailTransition.h */,
+				8E03DA661BCD8A9F009D02CC /* CustomDetailTransition.m */,
 				AAE20B7C1BB72DAF004690D3 /* RoundCollectionViewLayout.h */,
 				AAE20B7D1BB72DAF004690D3 /* RoundCollectionViewLayout.m */,
 				AAE20B711BB6F39A004690D3 /* CustomCollectionViewCell.h */,
@@ -262,7 +262,7 @@
 				AAE20B7E1BB72DAF004690D3 /* RoundCollectionViewLayout.m in Sources */,
 				8E7F8E3E1BC74DB3008367C0 /* DetailViewController.m in Sources */,
 				8E7F8E3A1BC72F59008367C0 /* ZoomInteractiveTransition.m in Sources */,
-				8E7F8E411BC78C6C008367C0 /* PopTransition.m in Sources */,
+				8E03DA671BCD8A9F009D02CC /* CustomDetailTransition.m in Sources */,
 				8E7F8E311BC72523008367C0 /* FullScreenController.m in Sources */,
 				AAE20B741BB6F39A004690D3 /* CustomCollectionViewCell.m in Sources */,
 				AAE20B781BB6F4C9004690D3 /* Extensions.m in Sources */,

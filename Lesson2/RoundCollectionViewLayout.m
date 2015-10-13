@@ -40,7 +40,7 @@
 
 - (void)prepareLayout {
     
-    NSInteger cx = self.collectionViewContentSizeM.width / 2;
+    NSInteger cx = self.collectionViewContentSize.width / 4;
     NSInteger cy = 150;
     
     NSArray *sections = [self take:[self numberOfSections]];
@@ -57,7 +57,7 @@
                 return angle;
             }];
             
-            double a = cx - kItemSize / 3;
+            double a = cx - kItemSize / 2;
             double b = 100;
             points = [angles bk_map:^id(NSNumber *degree) {
                 double fi = degreesToRadians([degree doubleValue]);
@@ -76,9 +76,7 @@
 
             double scale = sin(degreesToRadians(currentAngle))* 2/3 + 1;
             
-            // Увеличение
             CATransform3D scaleAndTranslation = CATransform3DConcat(CATransform3DMakeScale(scale, scale, scale), CATransform3DMakeTranslation(0, 0, scale*10));
-            CATransform3D scaleTranslationRotation = CATransform3DConcat(scaleAndTranslation, CATransform3DMakeRotation(degreesToRadians(40), 0., 0.5, 0.));
             attr.transform3D = scaleAndTranslation;
 
             attr.frame = CGRectMake(pt.x - kItemSize / 2 + self.collectionView.contentOffset.x, pt.y - kItemSize / 2, kItemSize,kItemSize);
@@ -90,21 +88,14 @@
     
 }
 
-
-- (CGSize)collectionViewContentSizeM {
-    
-    CGSize size = self.collectionView.frame.size;
-    
-    if ([self numberOfSections]>1) {
-        size.height += 320*([self numberOfSections]-2);
-    } else size.height -= 64;
-    return size;
-}
-
 - (CGSize)collectionViewContentSize {
-    CGSize size = self.collectionViewContentSizeM;
-    size.width *= 2;
-    return size;
+    if ([self numberOfSections] == 0) {
+        CGSize size = self.collectionView.frame.size;
+        size.height -= 64;
+        return size;
+    }
+    return CGSizeMake(self.collectionView.frame.size.width * 2,
+                      [self numberOfSections] * kNextSectionOffset + 64 );
 }
 
 - (UICollectionViewLayoutAttributes *)layoutAttributesForItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -118,10 +109,11 @@
 
 - (NSArray *)layoutAttributesForElementsInRect:(CGRect)rect {
     NSMutableArray *attrs = [NSMutableArray new];
-
     for (NSArray *arr in attributes) {
         for (UICollectionViewLayoutAttributes *atr in arr) {
-            [attrs addObject:atr];
+            if (CGRectIntersectsRect(rect, atr.frame)) {
+                [attrs addObject:atr];
+            }
         }
     }
     return attrs;
