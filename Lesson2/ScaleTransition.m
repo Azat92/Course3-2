@@ -31,11 +31,13 @@
     UIViewController *toViewController = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
     UIViewController *fromViewController = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
     UIView *containerView = [transitionContext containerView];
+    CGRect finalFrame = [transitionContext finalFrameForViewController:toViewController];
     
     BOOL push = self.operation == UINavigationControllerOperationPush;
     
     [containerView addSubview:toViewController.view];
     toViewController.view.alpha = 0;
+    toViewController.view.frame = finalFrame;
     
     if (push) {
         toViewController.view.transform = CGAffineTransformMakeScale(0.05, 0.05);

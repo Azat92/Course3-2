@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 @import UIKit;
 
-@interface DetailTransition : NSObject <UIViewControllerAnimatedTransitioning>
+@interface DetailTransition : UIPercentDrivenInteractiveTransition <UIViewControllerAnimatedTransitioning>
 
 + (instancetype)transitionWithOperation:(UINavigationControllerOperation)operation;
 

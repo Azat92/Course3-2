@@ -57,6 +57,10 @@ NSString * const ImageNameFormatString = @"ios-9-wallpapers-%ld";
     UIPinchGestureRecognizer *pinchGesture = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(handlePinchGesture:)];
     [self.collectionView addGestureRecognizer:pinchGesture];
     
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
     self.navigationController.delegate = self;
 }
 
