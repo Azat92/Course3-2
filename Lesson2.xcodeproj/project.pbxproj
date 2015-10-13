@@ -18,6 +18,10 @@
 		AAE20B781BB6F4C9004690D3 /* Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = AAE20B771BB6F4C9004690D3 /* Extensions.m */; settings = {ASSET_TAGS = (); }; };
 		AAE20B7B1BB71D44004690D3 /* SnakeCollectionViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = AAE20B7A1BB71D44004690D3 /* SnakeCollectionViewLayout.m */; settings = {ASSET_TAGS = (); }; };
 		AAE20B7E1BB72DAF004690D3 /* RoundCollectionViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = AAE20B7D1BB72DAF004690D3 /* RoundCollectionViewLayout.m */; settings = {ASSET_TAGS = (); }; };
+		ABF6FCDC1BCD9FDE00027695 /* FullImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ABF6FCDB1BCD9FDE00027695 /* FullImageViewController.m */; };
+		ABF6FCDF1BCDB70800027695 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ABF6FCDE1BCDB70800027695 /* DetailViewController.m */; };
+		ABF6FCE21BCDB73E00027695 /* ScaleTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = ABF6FCE11BCDB73E00027695 /* ScaleTransition.m */; };
+		ABF6FCE51BCDB75500027695 /* DetailTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = ABF6FCE41BCDB75500027695 /* DetailTransition.m */; };
 		E3651CF0089FF033FE0BC335 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 50F4652CA2620C82B1E50985 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -44,6 +48,14 @@
 		AAE20B7A1BB71D44004690D3 /* SnakeCollectionViewLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SnakeCollectionViewLayout.m; sourceTree = "<group>"; };
 		AAE20B7C1BB72DAF004690D3 /* RoundCollectionViewLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RoundCollectionViewLayout.h; sourceTree = "<group>"; };
 		AAE20B7D1BB72DAF004690D3 /* RoundCollectionViewLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RoundCollectionViewLayout.m; sourceTree = "<group>"; };
+		ABF6FCDA1BCD9FDE00027695 /* FullImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FullImageViewController.h; sourceTree = "<group>"; };
+		ABF6FCDB1BCD9FDE00027695 /* FullImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FullImageViewController.m; sourceTree = "<group>"; };
+		ABF6FCDD1BCDB70800027695 /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
+		ABF6FCDE1BCDB70800027695 /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
+		ABF6FCE01BCDB73E00027695 /* ScaleTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScaleTransition.h; sourceTree = "<group>"; };
+		ABF6FCE11BCDB73E00027695 /* ScaleTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScaleTransition.m; sourceTree = "<group>"; };
+		ABF6FCE31BCDB75500027695 /* DetailTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailTransition.h; sourceTree = "<group>"; };
+		ABF6FCE41BCDB75500027695 /* DetailTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailTransition.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +119,14 @@
 				AAE20B721BB6F39A004690D3 /* CustomCollectionViewCell.m */,
 				AAE20B731BB6F39A004690D3 /* CustomCollectionViewCell.xib */,
 				AAE20B5A1BB6F33F004690D3 /* Supporting Files */,
+				ABF6FCDA1BCD9FDE00027695 /* FullImageViewController.h */,
+				ABF6FCDB1BCD9FDE00027695 /* FullImageViewController.m */,
+				ABF6FCDD1BCDB70800027695 /* DetailViewController.h */,
+				ABF6FCDE1BCDB70800027695 /* DetailViewController.m */,
+				ABF6FCE01BCDB73E00027695 /* ScaleTransition.h */,
+				ABF6FCE11BCDB73E00027695 /* ScaleTransition.m */,
+				ABF6FCE31BCDB75500027695 /* DetailTransition.h */,
+				ABF6FCE41BCDB75500027695 /* DetailTransition.m */,
 			);
 			path = Lesson2;
 			sourceTree = "<group>";
@@ -233,10 +253,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				AAE20B621BB6F33F004690D3 /* CollectionViewController.m in Sources */,
+				ABF6FCE21BCDB73E00027695 /* ScaleTransition.m in Sources */,
+				ABF6FCDC1BCD9FDE00027695 /* FullImageViewController.m in Sources */,
+				ABF6FCDF1BCDB70800027695 /* DetailViewController.m in Sources */,
 				AAE20B5F1BB6F33F004690D3 /* AppDelegate.m in Sources */,
 				AAE20B5C1BB6F33F004690D3 /* main.m in Sources */,
 				AAE20B7E1BB72DAF004690D3 /* RoundCollectionViewLayout.m in Sources */,
 				AAE20B7B1BB71D44004690D3 /* SnakeCollectionViewLayout.m in Sources */,
+				ABF6FCE51BCDB75500027695 /* DetailTransition.m in Sources */,
 				AAE20B741BB6F39A004690D3 /* CustomCollectionViewCell.m in Sources */,
 				AAE20B781BB6F4C9004690D3 /* Extensions.m in Sources */,
 			);
