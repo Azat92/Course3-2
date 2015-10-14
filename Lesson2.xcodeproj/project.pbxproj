@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8E03DA671BCD8A9F009D02CC /* CustomDetailTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E03DA661BCD8A9F009D02CC /* CustomDetailTransition.m */; settings = {ASSET_TAGS = (); }; };
+		8E7F8E311BC72523008367C0 /* FullScreenController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E7F8E301BC72523008367C0 /* FullScreenController.m */; settings = {ASSET_TAGS = (); }; };
+		8E7F8E3A1BC72F59008367C0 /* ZoomInteractiveTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E7F8E361BC72F59008367C0 /* ZoomInteractiveTransition.m */; settings = {ASSET_TAGS = (); }; };
+		8E7F8E3B1BC72F59008367C0 /* UIView+Snapshotting.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E7F8E391BC72F59008367C0 /* UIView+Snapshotting.m */; settings = {ASSET_TAGS = (); }; };
+		8E7F8E3E1BC74DB3008367C0 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E7F8E3D1BC74DB3008367C0 /* DetailViewController.m */; settings = {ASSET_TAGS = (); }; };
 		AAE20B5C1BB6F33F004690D3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AAE20B5B1BB6F33F004690D3 /* main.m */; };
 		AAE20B5F1BB6F33F004690D3 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AAE20B5E1BB6F33F004690D3 /* AppDelegate.m */; };
 		AAE20B621BB6F33F004690D3 /* CollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AAE20B611BB6F33F004690D3 /* CollectionViewController.m */; };
@@ -16,7 +21,6 @@
 		AAE20B741BB6F39A004690D3 /* CustomCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AAE20B721BB6F39A004690D3 /* CustomCollectionViewCell.m */; settings = {ASSET_TAGS = (); }; };
 		AAE20B751BB6F39A004690D3 /* CustomCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AAE20B731BB6F39A004690D3 /* CustomCollectionViewCell.xib */; settings = {ASSET_TAGS = (); }; };
 		AAE20B781BB6F4C9004690D3 /* Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = AAE20B771BB6F4C9004690D3 /* Extensions.m */; settings = {ASSET_TAGS = (); }; };
-		AAE20B7B1BB71D44004690D3 /* SnakeCollectionViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = AAE20B7A1BB71D44004690D3 /* SnakeCollectionViewLayout.m */; settings = {ASSET_TAGS = (); }; };
 		AAE20B7E1BB72DAF004690D3 /* RoundCollectionViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = AAE20B7D1BB72DAF004690D3 /* RoundCollectionViewLayout.m */; settings = {ASSET_TAGS = (); }; };
 		E3651CF0089FF033FE0BC335 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 50F4652CA2620C82B1E50985 /* libPods.a */; };
 /* End PBXBuildFile section */
@@ -25,6 +29,17 @@
 		371B1C53D89431B17036F685 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		37832B6475917A940961C44B /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		50F4652CA2620C82B1E50985 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		8E03DA651BCD8A9F009D02CC /* CustomDetailTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomDetailTransition.h; sourceTree = "<group>"; };
+		8E03DA661BCD8A9F009D02CC /* CustomDetailTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomDetailTransition.m; sourceTree = "<group>"; };
+		8E7F8E2F1BC72523008367C0 /* FullScreenController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FullScreenController.h; sourceTree = "<group>"; };
+		8E7F8E301BC72523008367C0 /* FullScreenController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FullScreenController.m; sourceTree = "<group>"; };
+		8E7F8E351BC72F59008367C0 /* ZoomInteractiveTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZoomInteractiveTransition.h; sourceTree = "<group>"; };
+		8E7F8E361BC72F59008367C0 /* ZoomInteractiveTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZoomInteractiveTransition.m; sourceTree = "<group>"; };
+		8E7F8E371BC72F59008367C0 /* ZoomTransitionProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZoomTransitionProtocol.h; sourceTree = "<group>"; };
+		8E7F8E381BC72F59008367C0 /* UIView+Snapshotting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Snapshotting.h"; sourceTree = "<group>"; };
+		8E7F8E391BC72F59008367C0 /* UIView+Snapshotting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Snapshotting.m"; sourceTree = "<group>"; };
+		8E7F8E3C1BC74DB3008367C0 /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
+		8E7F8E3D1BC74DB3008367C0 /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
 		AAE20B571BB6F33F004690D3 /* Lesson2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Lesson2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AAE20B5B1BB6F33F004690D3 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		AAE20B5D1BB6F33F004690D3 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -40,8 +55,6 @@
 		AAE20B731BB6F39A004690D3 /* CustomCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomCollectionViewCell.xib; sourceTree = "<group>"; };
 		AAE20B761BB6F4C9004690D3 /* Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Extensions.h; sourceTree = "<group>"; };
 		AAE20B771BB6F4C9004690D3 /* Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Extensions.m; sourceTree = "<group>"; };
-		AAE20B791BB71D44004690D3 /* SnakeCollectionViewLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SnakeCollectionViewLayout.h; sourceTree = "<group>"; };
-		AAE20B7A1BB71D44004690D3 /* SnakeCollectionViewLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SnakeCollectionViewLayout.m; sourceTree = "<group>"; };
 		AAE20B7C1BB72DAF004690D3 /* RoundCollectionViewLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RoundCollectionViewLayout.h; sourceTree = "<group>"; };
 		AAE20B7D1BB72DAF004690D3 /* RoundCollectionViewLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RoundCollectionViewLayout.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -97,10 +110,17 @@
 			isa = PBXGroup;
 			children = (
 				AAE20B631BB6F33F004690D3 /* Main.storyboard */,
+				8E7F8E351BC72F59008367C0 /* ZoomInteractiveTransition.h */,
+				8E7F8E361BC72F59008367C0 /* ZoomInteractiveTransition.m */,
+				8E7F8E371BC72F59008367C0 /* ZoomTransitionProtocol.h */,
 				AAE20B601BB6F33F004690D3 /* CollectionViewController.h */,
 				AAE20B611BB6F33F004690D3 /* CollectionViewController.m */,
-				AAE20B791BB71D44004690D3 /* SnakeCollectionViewLayout.h */,
-				AAE20B7A1BB71D44004690D3 /* SnakeCollectionViewLayout.m */,
+				8E7F8E2F1BC72523008367C0 /* FullScreenController.h */,
+				8E7F8E301BC72523008367C0 /* FullScreenController.m */,
+				8E7F8E3C1BC74DB3008367C0 /* DetailViewController.h */,
+				8E7F8E3D1BC74DB3008367C0 /* DetailViewController.m */,
+				8E03DA651BCD8A9F009D02CC /* CustomDetailTransition.h */,
+				8E03DA661BCD8A9F009D02CC /* CustomDetailTransition.m */,
 				AAE20B7C1BB72DAF004690D3 /* RoundCollectionViewLayout.h */,
 				AAE20B7D1BB72DAF004690D3 /* RoundCollectionViewLayout.m */,
 				AAE20B711BB6F39A004690D3 /* CustomCollectionViewCell.h */,
@@ -114,6 +134,8 @@
 		AAE20B5A1BB6F33F004690D3 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				8E7F8E381BC72F59008367C0 /* UIView+Snapshotting.h */,
+				8E7F8E391BC72F59008367C0 /* UIView+Snapshotting.m */,
 				AAE20B5D1BB6F33F004690D3 /* AppDelegate.h */,
 				AAE20B5E1BB6F33F004690D3 /* AppDelegate.m */,
 				AAE20B661BB6F33F004690D3 /* Assets.xcassets */,
@@ -159,6 +181,7 @@
 				TargetAttributes = {
 					AAE20B561BB6F33F004690D3 = {
 						CreatedOnToolsVersion = 7.0;
+						DevelopmentTeam = 24Q556TG24;
 					};
 				};
 			};
@@ -234,9 +257,13 @@
 			files = (
 				AAE20B621BB6F33F004690D3 /* CollectionViewController.m in Sources */,
 				AAE20B5F1BB6F33F004690D3 /* AppDelegate.m in Sources */,
+				8E7F8E3B1BC72F59008367C0 /* UIView+Snapshotting.m in Sources */,
 				AAE20B5C1BB6F33F004690D3 /* main.m in Sources */,
 				AAE20B7E1BB72DAF004690D3 /* RoundCollectionViewLayout.m in Sources */,
-				AAE20B7B1BB71D44004690D3 /* SnakeCollectionViewLayout.m in Sources */,
+				8E7F8E3E1BC74DB3008367C0 /* DetailViewController.m in Sources */,
+				8E7F8E3A1BC72F59008367C0 /* ZoomInteractiveTransition.m in Sources */,
+				8E03DA671BCD8A9F009D02CC /* CustomDetailTransition.m in Sources */,
+				8E7F8E311BC72523008367C0 /* FullScreenController.m in Sources */,
 				AAE20B741BB6F39A004690D3 /* CustomCollectionViewCell.m in Sources */,
 				AAE20B781BB6F4C9004690D3 /* Extensions.m in Sources */,
 			);
@@ -281,7 +308,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: iwasraisedinacity@gmail.com (XWUEYX48E4)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -300,7 +327,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -325,7 +352,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
@@ -338,7 +365,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -351,11 +378,14 @@
 			baseConfigurationReference = 371B1C53D89431B17036F685 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = Lesson2/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = ru.azatalmeev.Lesson2;
+				PRODUCT_BUNDLE_IDENTIFIER = ru.arturS.Lesson2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -364,11 +394,14 @@
 			baseConfigurationReference = 37832B6475917A940961C44B /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = Lesson2/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = ru.azatalmeev.Lesson2;
+				PRODUCT_BUNDLE_IDENTIFIER = ru.arturS.Lesson2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};

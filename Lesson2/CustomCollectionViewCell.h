@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CustomCollectionViewCell : UICollectionViewCell
+@interface CustomCollectionViewCell : UICollectionViewCell <UIGestureRecognizerDelegate>
+
+@property (weak, nonatomic) IBOutlet UIImageView *imageView;
+@property (nonatomic, strong) UIPinchGestureRecognizer *pinchRecognizer;
 
 @end

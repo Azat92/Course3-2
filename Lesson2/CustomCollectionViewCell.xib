@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
     </dependencies>
@@ -11,9 +11,27 @@
             <autoresizingMask key="autoresizingMask"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                 <rect key="frame" x="0.0" y="0.0" width="211" height="186"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="hYQ-Sh-4Hq">
+                        <rect key="frame" x="0.0" y="0.0" width="211" height="186"/>
+                        <animations/>
+                        <gestureRecognizers/>
+                    </imageView>
+                </subviews>
+                <animations/>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             </view>
+            <animations/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="hYQ-Sh-4Hq" secondAttribute="bottom" id="REr-3q-jw7"/>
+                <constraint firstItem="hYQ-Sh-4Hq" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="ZJE-8Z-JzY"/>
+                <constraint firstAttribute="trailing" secondItem="hYQ-Sh-4Hq" secondAttribute="trailing" id="afb-zc-N5l"/>
+                <constraint firstItem="hYQ-Sh-4Hq" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="bzV-Bi-20d"/>
+            </constraints>
             <size key="customSize" width="211" height="186"/>
+            <connections>
+                <outlet property="imageView" destination="hYQ-Sh-4Hq" id="cM2-au-fdU"/>
+            </connections>
             <point key="canvasLocation" x="305.5" y="301"/>
         </collectionViewCell>
     </objects>

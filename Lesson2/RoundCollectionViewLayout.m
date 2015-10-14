@@ -10,69 +10,112 @@
 #import <BlocksKit+UIKit.h>
 #import "Extensions.h"
 
+
+
 @interface RoundCollectionViewLayout () {
     NSArray *attributes;
+    NSArray *sectionAttributes;
+    NSArray *angles;
+    NSArray *points;
 }
+@property (nonatomic) CGFloat currentCellScale;
 @end
 
 @implementation RoundCollectionViewLayout
 #define kItemSize 100
+#define kNextSectionOffset 320
 #define degreesToRadians( degrees ) ( ( degrees ) / 180.0 * M_PI )
 
-- (NSInteger)numberOfItems {
-    id<UICollectionViewDataSource> dataSource = self.collectionView.dataSource;
-    return [dataSource collectionView:self.collectionView numberOfItemsInSection:0];
+- (NSInteger)numberOfItemsInSection:(NSInteger)section {
+    return [self.dataSource collectionView:self.collectionView numberOfItemsInSection:section];
+}
+
+- (NSInteger)numberOfSections {
+    return [self.dataSource numberOfSectionsInCollectionView:self.collectionView];
+}
+
+-(id<UICollectionViewDataSource>)dataSource{
+    return self.collectionView.dataSource;
 }
 
 - (void)prepareLayout {
-    NSInteger cx = self.collectionViewContentSizeM.width / 2;
-    NSInteger cy = self.collectionViewContentSizeM.height / 2;
-    double addAngle = self.collectionView.contentOffset.x / 2. / cx * 360;
-    NSArray *items = [self take:self.numberOfItems];
-    NSArray *angles = [items bk_map:^id(NSNumber *index) {
-        return @(360. * [index integerValue] / items.count + addAngle);
-    }];
-    double a = cx - kItemSize / 2;
-    double b = 100;
-    NSArray *points = [angles bk_map:^id(NSNumber *degree) {
-        double fi = degreesToRadians([degree doubleValue]);
-        double r = a * b / sqrt(b * b * cos(fi) * cos(fi) + a * a * sin(fi) * sin(fi));
-        double x = cx + r * cos(fi);
-        double y = cy + r * sin(fi);
-        return [NSValue valueWithCGPoint:CGPointMake(x, y)];
-    }];
-    attributes = [items bk_map:^id(NSNumber *index) {
-        UICollectionViewLayoutAttributes *attr = [UICollectionViewLayoutAttributes layoutAttributesForCellWithIndexPath:[NSIndexPath indexPathForItem:index.integerValue inSection:0]];
-        CGPoint pt = [points[index.integerValue] CGPointValue];
-        attr.frame = CGRectMake(pt.x - kItemSize / 2 + self.collectionView.contentOffset.x, pt.y - kItemSize / 2, kItemSize, kItemSize);
-        return attr;
-    }];
-}
+    
+    NSInteger cx = self.collectionViewContentSize.width / 4;
+    NSInteger cy = 150;
+    
+    NSArray *sections = [self take:[self numberOfSections]];
+    attributes = [sections bk_map:^id(NSNumber *sectionIndex) {
+        NSArray *itemsInCurrentSection =
+        [self take:[self numberOfItemsInSection:[sectionIndex integerValue]]];
+        sectionAttributes = [itemsInCurrentSection bk_map:^id(NSNumber *itemIndex) {
+            
+            
+            angles = [itemsInCurrentSection bk_map:^id(NSNumber *index) {
+                
+                double addAngle = self.collectionView.contentOffset.x / 2. / cx * 360;
+                NSNumber *angle = @(360. * [itemIndex integerValue] / itemsInCurrentSection.count + addAngle);
+                return angle;
+            }];
+            
+            double a = cx - kItemSize / 2;
+            double b = 100;
+            points = [angles bk_map:^id(NSNumber *degree) {
+                double fi = degreesToRadians([degree doubleValue]);
+                double r = a * b / sqrt(b * b * cos(fi) * cos(fi) + a * a * sin(fi) * sin(fi));
+                double x = cx + r * cos(fi);
+                double y = cy + r * sin(fi) + kNextSectionOffset*sectionIndex.integerValue;
+                return [NSValue valueWithCGPoint:CGPointMake(x, y)];
+            }];
+            
+            CGPoint pt = [points[itemIndex.integerValue] CGPointValue];
+        
+            UICollectionViewLayoutAttributes *attr = [UICollectionViewLayoutAttributes layoutAttributesForCellWithIndexPath:[NSIndexPath indexPathForItem:itemIndex.integerValue inSection:sectionIndex.integerValue]];
+            
+            int currentAngle =
+            [[angles objectAtIndex:itemIndex.integerValue] intValue];
 
-- (CGSize)collectionViewContentSizeM {
-    CGSize size = self.collectionView.frame.size;
-    size.height -= 64;
-    return size;
+            double scale = sin(degreesToRadians(currentAngle))* 2/3 + 1;
+            
+            CATransform3D scaleAndTranslation = CATransform3DConcat(CATransform3DMakeScale(scale, scale, scale), CATransform3DMakeTranslation(0, 0, scale*10));
+            attr.transform3D = scaleAndTranslation;
+
+            attr.frame = CGRectMake(pt.x - kItemSize / 2 + self.collectionView.contentOffset.x, pt.y - kItemSize / 2, kItemSize,kItemSize);
+            return attr;
+            
+        }];
+        return sectionAttributes;
+    }];
+    
 }
 
 - (CGSize)collectionViewContentSize {
-    CGSize size = self.collectionViewContentSizeM;
-    size.width *= 2;
-    return size;
+    if ([self numberOfSections] == 0) {
+        CGSize size = self.collectionView.frame.size;
+        size.height -= 64;
+        return size;
+    }
+    return CGSizeMake(self.collectionView.frame.size.width * 2,
+                      [self numberOfSections] * kNextSectionOffset + 64 );
 }
 
 - (UICollectionViewLayoutAttributes *)layoutAttributesForItemAtIndexPath:(NSIndexPath *)indexPath {
-    return attributes[indexPath.row];
+    return [attributes[indexPath.section] objectAtIndex:indexPath.row];
 }
 
 - (BOOL)shouldInvalidateLayoutForBoundsChange:(CGRect)newBounds {
     return YES;
 }
 
+
 - (NSArray *)layoutAttributesForElementsInRect:(CGRect)rect {
     NSMutableArray *attrs = [NSMutableArray new];
-    for (NSInteger i = 0; i < self.numberOfItems; i++)
-        [attrs addObject:[self layoutAttributesForItemAtIndexPath:[NSIndexPath indexPathForItem:i inSection:0]]];
+    for (NSArray *arr in attributes) {
+        for (UICollectionViewLayoutAttributes *atr in arr) {
+            if (CGRectIntersectsRect(rect, atr.frame)) {
+                [attrs addObject:atr];
+            }
+        }
+    }
     return attrs;
 }
 
