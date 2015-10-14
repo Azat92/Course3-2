@@ -32,11 +32,6 @@
     self.navigationController.delegate = self;
 }
 
-- (void)viewDidDisappear:(BOOL)animated {
-    [super viewDidDisappear:animated];
-    self.navigationController.delegate = nil;
-}
-
 - (void)handlePanGesture:(UIScreenEdgePanGestureRecognizer *)gesture {
     CGFloat progress = [gesture translationInView:self.view].x / (self.view.bounds.size.width * 1.0);
     progress = MIN(1.0, MAX(0.0, progress));

@@ -49,6 +49,12 @@
     
     if (push) {
         toViewController.view.transform = CGAffineTransformMakeTranslation(toWidth, 0);
+    } else {
+//        toViewController.view.transform = CGAffineTransformMakeTranslation(-fromWidth, 0);
+//        CGAffineTransform rotation = CGAffineTransformMakeRotation(M_PI_4);
+//        CGAffineTransform transform = CGAffineTransformTranslate(rotation, -finalFrame.size.width, 0);
+//        toViewController.view.transform = CGAffineTransformTranslate(rotation, -finalFrame.size.width, 0);
+//        CGRectApplyAffineTransform(toViewController.view.bounds, transform);
     }
     
     [UIView animateWithDuration:[self transitionDuration:transitionContext] animations:^{
@@ -57,8 +63,9 @@
             fromViewController.view.transform = CGAffineTransformMakeTranslation(-fromWidth, 0);
         } else {
             toViewController.view.transform = CGAffineTransformIdentity;
+//            toViewController.view.transform = CGAffineTransformMakeTranslation(0, 0);
             fromViewController.view.transform = CGAffineTransformMakeTranslation(finalFrame.size.width, 0);
-            toViewController.view.frame = finalFrame;
+//            toViewController.view.frame = finalFrame;
         }
     } completion:^(BOOL finished) {
         [transitionContext completeTransition:![transitionContext transitionWasCancelled]];
@@ -89,46 +96,37 @@
     BOOL push = self.operation == UINavigationControllerOperationPush;
     CGFloat position = percentComplete * self.finalFrame.size.width;
     CGFloat width = self.finalFrame.size.width;
-//    [UIView animateWithDuration:0.25 animations:^{
-        self.fromView.transform = CGAffineTransformMakeTranslation(position, 0);
-        CGFloat toViewX = self.toView.frame.origin.x;
-        if (push) {
-            self.toView.transform = CGAffineTransformMakeTranslation(toViewX - position, 0);
-        } else {
-            self.toView.transform = CGAffineTransformMakeTranslation(-width + position, 0);
-        }
-//    } completion:^(BOOL finished) {
-//        
-//    }];
+    
+    self.fromView.transform = CGAffineTransformMakeTranslation(position, 0);
+    CGFloat toViewX = self.toView.frame.origin.x;
+    if (push) {
+        self.toView.transform = CGAffineTransformMakeTranslation(toViewX - position, 0);
+    } else {
+        self.toView.transform = CGAffineTransformMakeTranslation(-width + position, 0);
+    }
 }
 
 - (void)finishInteractiveTransition {
-//    BOOL push = self.operation == UINavigationControllerOperationPush;
-    
+    [super finishInteractiveTransition];
     [UIView animateWithDuration:[self transitionDuration:self.transitionContext] animations:^{
-//        if (push) {
-            // смещение вправо
-            self.toView.transform = CGAffineTransformMakeTranslation(0, 0);
-            self.fromView.transform = CGAffineTransformMakeTranslation(self.finalFrame.size.width, 0);
-//        } else {
-//            self.toView.transform = CGAffineTransformIdentity;
-//            self.fromView.transform = CGAffineTransformMakeTranslation(self.finalFrame.size.width, 0);
-//            self.toView.frame = self.finalFrame;
-//        }
+        // смещение вправо
+        self.toView.transform = CGAffineTransformMakeTranslation(0, 0);
+        self.fromView.transform = CGAffineTransformMakeTranslation(self.finalFrame.size.width, 0);
     } completion:^(BOOL finished) {
         [self.transitionContext completeTransition:finished];
-        [super finishInteractiveTransition];
+        
     }];
 }
 
 - (void)cancelInteractiveTransition {
-       // смещение влево
+    [super cancelInteractiveTransition];
     [UIView animateWithDuration:[self transitionDuration:self.transitionContext] animations:^{
+        // смещение влево
         self.fromView.transform = CGAffineTransformMakeTranslation(0, 0);
         self.toView.transform = CGAffineTransformMakeTranslation(-self.finalFrame.size.width, 0);
     } completion:^(BOOL finished) {
-        [self.transitionContext completeTransition:finished];
-        [super cancelInteractiveTransition];
+        [self.transitionContext completeTransition:!finished];
+        
     }];
 }
 
