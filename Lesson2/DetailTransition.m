@@ -12,12 +12,10 @@
 
 @property (nonatomic) UINavigationControllerOperation operation;
 @property (nonatomic) CGRect finalFrame;
-@property (nonatomic, weak) UIViewController *fromViewController;
-@property (nonatomic, weak) UIViewController *toViewController;
-@property (nonatomic, weak) UIView *fromView;
-@property (nonatomic, weak) UIView *toView;
 @property (nonatomic, weak) id<UIViewControllerContextTransitioning> transitionContext;
-@property (nonatomic, weak) UIView *containerView;
+
+@property (nonatomic, weak) UIView *leftView;
+@property (nonatomic, weak) UIView *rightView;
 
 @end
 
@@ -36,82 +34,78 @@
 - (void)animateTransition:(id<UIViewControllerContextTransitioning>)transitionContext
 {
     UIViewController *toViewController = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
-    UIViewController *fromViewController = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
     CGRect finalFrame = [transitionContext finalFrameForViewController:toViewController];
     UIView *containerView = [transitionContext containerView];
     
     BOOL push = self.operation == UINavigationControllerOperationPush;
     
-    [containerView addSubview:toViewController.view];
+    UIView *fromView = [transitionContext viewForKey:UITransitionContextFromViewKey];
+    UIView *toView = [transitionContext viewForKey:UITransitionContextToViewKey];
     
-    CGFloat toWidth = toViewController.view.frame.size.width;
-    CGFloat fromWidth = fromViewController.view.frame.size.width;
+    UIView *leftView = push ? fromView : toView;
+    UIView *rightView = push ? toView : fromView;
     
-    if (push) {
-        toViewController.view.transform = CGAffineTransformMakeTranslation(toWidth, 0);
-    } else {
-//        toViewController.view.transform = CGAffineTransformMakeTranslation(-fromWidth, 0);
-//        CGAffineTransform rotation = CGAffineTransformMakeRotation(M_PI_4);
-//        CGAffineTransform transform = CGAffineTransformTranslate(rotation, -finalFrame.size.width, 0);
-//        toViewController.view.transform = CGAffineTransformTranslate(rotation, -finalFrame.size.width, 0);
-//        CGRectApplyAffineTransform(toViewController.view.bounds, transform);
-    }
+    CGAffineTransform scaledTransform = CGAffineTransformMakeTranslation(-finalFrame.size.width, 0);
+    CGAffineTransform shifted = CGAffineTransformMakeTranslation(finalFrame.size.width, 0);
+    
+    fromView.frame = finalFrame;
+    toView.frame = finalFrame;
+    
+    if (push)
+        rightView.transform = shifted;
+    else
+        leftView.transform = scaledTransform;
+    
+    [containerView addSubview:leftView];
+    [containerView addSubview:rightView];
     
     [UIView animateWithDuration:[self transitionDuration:transitionContext] animations:^{
         if (push) {
-            toViewController.view.transform = CGAffineTransformIdentity;
-            fromViewController.view.transform = CGAffineTransformMakeTranslation(-fromWidth, 0);
-        } else {
-            toViewController.view.transform = CGAffineTransformIdentity;
-//            toViewController.view.transform = CGAffineTransformMakeTranslation(0, 0);
-            fromViewController.view.transform = CGAffineTransformMakeTranslation(finalFrame.size.width, 0);
-//            toViewController.view.frame = finalFrame;
+            leftView.transform = scaledTransform;
+            rightView.transform = CGAffineTransformIdentity;
+        }
+        else {
+            leftView.transform = CGAffineTransformIdentity;
+            rightView.transform = shifted;
         }
     } completion:^(BOOL finished) {
-        [transitionContext completeTransition:![transitionContext transitionWasCancelled]];
-        
+        leftView.transform = CGAffineTransformIdentity;
+        [transitionContext completeTransition:finished];
     }];
 }
 
 - (void)startInteractiveTransition:(id<UIViewControllerContextTransitioning>)transitionContext {
     self.transitionContext = transitionContext;
     UIView *container = [transitionContext containerView];
-    UIViewController *fromVC = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
     UIViewController *toVC = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
     UIView *fromView = [transitionContext viewForKey:UITransitionContextFromViewKey];
     UIView *toView = [transitionContext viewForKey:UITransitionContextToViewKey];
     self.finalFrame = [transitionContext finalFrameForViewController:toVC];
     
-    self.fromView = fromView;
-    self.toView = toView;
-    self.fromViewController = fromVC;
-    self.toViewController = toVC;
+    self.leftView = toView;
+    self.rightView = fromView;
+    CGAffineTransform transform = CGAffineTransformMakeTranslation(-self.finalFrame.size.width, 0);
     
-    [container addSubview:fromView];
-    [container addSubview:toView];
-    self.containerView = container;
+    fromView.frame = self.finalFrame;
+    toView.frame = self.finalFrame;
+    self.leftView.transform = transform;
+    
+    [container addSubview:self.leftView];
+    [container addSubview:self.rightView];
 }
 
 - (void)updateInteractiveTransition:(CGFloat)percentComplete {
-    BOOL push = self.operation == UINavigationControllerOperationPush;
-    CGFloat position = percentComplete * self.finalFrame.size.width;
-    CGFloat width = self.finalFrame.size.width;
-    
-    self.fromView.transform = CGAffineTransformMakeTranslation(position, 0);
-    CGFloat toViewX = self.toView.frame.origin.x;
-    if (push) {
-        self.toView.transform = CGAffineTransformMakeTranslation(toViewX - position, 0);
-    } else {
-        self.toView.transform = CGAffineTransformMakeTranslation(-width + position, 0);
-    }
+    CGAffineTransform transform = CGAffineTransformMakeTranslation(-self.finalFrame.size.width * (1 - percentComplete), 0);
+    self.leftView.transform = transform;
+    self.rightView.transform = CGAffineTransformMakeTranslation(self.finalFrame.size.width * percentComplete, 0);
 }
 
 - (void)finishInteractiveTransition {
     [super finishInteractiveTransition];
     [UIView animateWithDuration:[self transitionDuration:self.transitionContext] animations:^{
         // смещение вправо
-        self.toView.transform = CGAffineTransformMakeTranslation(0, 0);
-        self.fromView.transform = CGAffineTransformMakeTranslation(self.finalFrame.size.width, 0);
+        self.leftView.transform = CGAffineTransformMakeTranslation(0, 0);
+        self.rightView.transform = CGAffineTransformMakeTranslation(self.finalFrame.size.width, 0);
     } completion:^(BOOL finished) {
         [self.transitionContext completeTransition:finished];
         
@@ -122,11 +116,11 @@
     [super cancelInteractiveTransition];
     [UIView animateWithDuration:[self transitionDuration:self.transitionContext] animations:^{
         // смещение влево
-        self.fromView.transform = CGAffineTransformMakeTranslation(0, 0);
-        self.toView.transform = CGAffineTransformMakeTranslation(-self.finalFrame.size.width, 0);
+        self.rightView.transform = CGAffineTransformMakeTranslation(0, 0);
+        self.leftView.transform = CGAffineTransformMakeTranslation(-self.finalFrame.size.width, 0);
     } completion:^(BOOL finished) {
+        self.leftView.transform = CGAffineTransformIdentity;
         [self.transitionContext completeTransition:!finished];
-        
     }];
 }
 
